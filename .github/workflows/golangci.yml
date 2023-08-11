@@ -19,3 +19,14 @@ jobs:
           golangci_lint_flags: "--config=./.golangci.yml ./..."
           fail_on_error: true
           reporter: "github-pr-review"
+        env:
+          CACHE_KEY: linux-golangci-new-key
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-${{ env.CACHE_KEY }}-${{ hashFiles('./go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.CACHE_KEY }}-
