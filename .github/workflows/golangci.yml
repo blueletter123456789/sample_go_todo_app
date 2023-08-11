@@ -19,13 +19,14 @@ jobs:
           golangci_lint_flags: "--config=./.golangci.yml ./..."
           fail_on_error: true
           reporter: "github-pr-review"
-      - name: Cache Go build and module
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-golangci-${{ hashFiles('./go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-golangci-
+          key: ${{ runner.os }}-golangci-${{ github.sha }}
+      # - name: Cache Go build and module
+      #   id: cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.cache/go-build
+      #       ~/go/pkg/mod
+      #     key: ${{ runner.os }}-golangci-${{ hashFiles('./go.sum') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-golangci-
