@@ -14,12 +14,12 @@ jobs:
         uses: actions/checkout@v3
       - name: golangci-lint
         uses: reviewdog/action-golangci-lint@v2
+        key: ${{ runner.os }}-golangci-${{ github.sha }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           golangci_lint_flags: "--config=./.golangci.yml ./..."
           fail_on_error: true
           reporter: "github-pr-review"
-          key: ${{ runner.os }}-golangci-${{ github.sha }}
       # - name: Cache Go build and module
       #   id: cache
       #   uses: actions/cache@v2
