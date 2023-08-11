@@ -15,7 +15,7 @@ func TestNewMux(t *testing.T) {
 	sut.ServeHTTP(w, r)
 
 	resp := w.Result()
-	t.Cleanup(func() {resp.Body.Close()})
+	t.Cleanup(func() { resp.Body.Close() })
 
 	if resp.StatusCode != http.StatusOK {
 		t.Error("want status code 200, but get", resp.StatusCode)

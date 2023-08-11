@@ -11,7 +11,6 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-
 func TestServerRun(t *testing.T) {
 
 	l, err := net.Listen("tcp", "localhost:0")
@@ -23,7 +22,7 @@ func TestServerRun(t *testing.T) {
 	mux := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 	})
-	
+
 	eg.Go(func() error {
 		s := NewServer(l, mux)
 		return s.Run(ctx)
@@ -42,12 +41,12 @@ func TestServerRun(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to read body: %+v", err)
 	}
-	
+
 	want := fmt.Sprintf("Hello, %s!", in)
 	if string(got) != want {
 		t.Errorf("want: %q, but got %q", want, got)
 	}
-	
+
 	cancel()
 	if err := eg.Wait(); err != nil {
 		t.Fatal(err)
