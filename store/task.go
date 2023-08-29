@@ -28,7 +28,7 @@ func (r *Repository) AddTask(ctx context.Context, db Execer, t *entity.Task) err
 		(title, status, created, modified)
 		VALUES (?, ?, ?, ?)`
 
-	result, err := db.ExecContext(ctx, sql, t.Title, t.Status)
+	result, err := db.ExecContext(ctx, sql, t.Title, t.Status, t.Created, t.Modified)
 	if err != nil {
 		return err
 	}
